@@ -51,20 +51,20 @@ namespace SlayTheSpireMechanics.VisualLogic.Card
            
             card.Wrapper.localScale = Vector3.zero;
 
-            return ScaleOneCard(card, startScaleFactor, 1f);
+            return ScaleOneCard(card, startScaleFactor, 0.3f);
         }
 
         public Tween PlayDeleteAnimation(CardView card)
         {
             card.Wrapper.localScale = Vector3.one;
             
-            return ScaleOneCard(card, 0, 1f);
+            return ScaleOneCard(card, 0, 0.3f);
         }
 
         public Tween PlayMoveToActiveSlot(CardView cardView, Action onComplete)
         {
             cardView._cardTweens.moveTween?.Kill();
-            return MoveOneCard(cardView, activeCardLocation.position, 1).OnComplete(() => onComplete?.Invoke());
+            return MoveOneCard(cardView, activeCardLocation.position, 0.3f).OnComplete(() => onComplete?.Invoke());
         }
         public void PlayHover(CardView cv, Action onComplete)
         {
@@ -75,8 +75,8 @@ namespace SlayTheSpireMechanics.VisualLogic.Card
             cv._cardTweens.moveTween?.Kill();
             cv._cardTweens.scaleTween?.onComplete?.Invoke();
             cv._cardTweens.scaleTween?.Kill();
-            Tween scaleTween = ScaleOneCard(cv, 1.2f, 1f);
-            Tween moveTween = MoveOneCard(cv, cv.Wrapper.position + cv.Wrapper.up, 1f);
+            Tween scaleTween = ScaleOneCard(cv, 1.2f, 0.3f);
+            Tween moveTween = MoveOneCard(cv, cv.Wrapper.position + cv.Wrapper.up, 0.3f);
      
 
 
@@ -90,8 +90,8 @@ namespace SlayTheSpireMechanics.VisualLogic.Card
             cv._cardTweens.scaleTween?. Kill();
 
 
-            Tween tween = RotateOneCard(cv, Vector3.zero, 1f);
-            Tween scaleTween = ScaleOneCard(cv, 1.2f, 1f);
+            Tween tween = RotateOneCard(cv, Vector3.zero, 0.3f);
+            Tween scaleTween = ScaleOneCard(cv, 1.2f, 0.3f);
             if (onComplete != null) tween.OnComplete(() => onComplete.Invoke());
         }
 
@@ -112,8 +112,8 @@ namespace SlayTheSpireMechanics.VisualLogic.Card
             cv.SortOrder = cv.SortOrder / 2 < 40 ? cv.SortOrder : cv.SortOrder / 2; // -----------------------------------------
             
             Tween tween = null;
-            if (_cardStartPositions.TryGetValue(cv, out var position)) { tween = MoveOneCard(cv, position, 1f);  }
-            if (_cardStartRotations.TryGetValue(cv, out var rotation)) { tween = RotateOneCard(cv, rotation, 1f); }
+            if (_cardStartPositions.TryGetValue(cv, out var position)) { tween = MoveOneCard(cv, position, 0.3f);  }
+            if (_cardStartRotations.TryGetValue(cv, out var rotation)) { tween = RotateOneCard(cv, rotation, 0.3f); }
             tween?.OnComplete(() =>  onComplete?.Invoke());
         }
 
@@ -123,9 +123,9 @@ namespace SlayTheSpireMechanics.VisualLogic.Card
             cv._cardTweens.moveTween?.Kill();
             cv._cardTweens.rotationTween?.Kill();
             cv._cardTweens.scaleTween?.Kill();
-            MoveOneCard(cv, discardPile.position, 0.4f);
+            MoveOneCard(cv, discardPile.position, 0.3f);
             RotateOneCard(cv, discardPile.rotation.eulerAngles, 0.3f);
-            Tween scaleTween = ScaleOneCard(cv, 0, 0.5f);
+            Tween scaleTween = ScaleOneCard(cv, 0, 0.3f);
             scaleTween?.OnComplete(() => onComplete?.Invoke());
         }
     }
