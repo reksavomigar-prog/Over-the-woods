@@ -20,6 +20,7 @@ public class Bezier : MonoBehaviour
     private GameObject _controlVisual2;
     private GameObject _controlVisual3;
     
+    private GameObject[] _controlVisualList;
 
     
     public bool isDrawing = false;
@@ -48,8 +49,15 @@ public class Bezier : MonoBehaviour
         
 
         
+        _controlVisualList = new GameObject[pointCount];
 
-
+        for (int i = 0; i < pointCount; i++)
+        {
+            _controlVisualList[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _controlVisualList[i].transform.localScale = Vector3.one * 0.3f;
+            _controlVisualList[i].GetComponent<Renderer>().material.color = Color.white;
+            _controlVisualList[i].transform.SetParent(container.transform);
+        }
     }
 
     public void Update()
@@ -93,7 +101,7 @@ public class Bezier : MonoBehaviour
                 break;
             }
             euler = Quaternion.LookRotation(Vector3.forward, Vector3.Cross(Vector3.forward,bezierPoints[i+1] - bezierPoints[i]));
-
+            _controlVisualList[i].transform.position = bezierPoints[i];
         }
         
         if (enableVisual)

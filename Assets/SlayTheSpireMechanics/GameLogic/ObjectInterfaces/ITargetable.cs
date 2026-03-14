@@ -10,5 +10,8 @@ namespace SlayTheSpireMechanics.VisualLogic.ObjectInterfaces
 
        
         public void GetDamage(int damageCa);
+        public void GetHeal(int heal);
+        public void IncreaseMaxHealth(int amount);
+        public void DecreaseMaxHealth(int amount);
     }
 }

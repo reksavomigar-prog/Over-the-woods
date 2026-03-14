@@ -125,8 +125,26 @@ namespace SlayTheSpireMechanics.VisualLogic.Enemies
         
         public void GetDamage(int damage)
         {
+            if (damage < 0) { return; }
             _health.Value = _health.Value - damage > 0 ? _health.Value - damage : 0;
         }
-        
+        public void GetHeal(int heal)
+        {
+            if (heal < 0) { return; }
+            _health.Value = _health.Value + heal < _maxHealth.Value ? _health.Value + heal : _maxHealth.Value;
+        }
+
+        public void IncreaseMaxHealth(int amount)
+        {
+            if (amount < 0) { return; }
+            _maxHealth.Value = _maxHealth.Value + amount < 999 ? _maxHealth.Value + amount : 999;
+        }
+
+        public void DecreaseMaxHealth(int amount)
+        {
+            if (amount < 0) { return; }
+            _maxHealth.Value = _maxHealth.Value - amount > 1 ? _maxHealth.Value - amount : 1;
+            if (_health.Value > _maxHealth.Value) _health.Value = _maxHealth.Value;
+        }
     }
 }
