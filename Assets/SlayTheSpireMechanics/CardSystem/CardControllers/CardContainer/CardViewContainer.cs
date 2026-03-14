@@ -65,7 +65,7 @@ namespace SlayTheSpireMechanics.VisualLogic.CardContainer
             {
                 _discardCardQueue.Enqueue(CardModel);
             }
-            StartCoroutine(DeleteCardsInQueue());
+            ActionSystem.Instance.AddMethodToQueue(DeleteCardsInQueue);
         }
         private void AcceptDrawCardList(List<CardModel> cm)
         {
@@ -73,7 +73,7 @@ namespace SlayTheSpireMechanics.VisualLogic.CardContainer
             {
                 _drawCardQueue.Enqueue(CardModel);
             }
-            StartCoroutine(VisualizeCardsInQueue());
+            ActionSystem.Instance.AddMethodToQueue(VisualizeCardsInQueue);
         }
         
 

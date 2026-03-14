@@ -144,6 +144,10 @@ namespace SlayTheSpireMechanics
         {
             AddReactionsToQueue(callback);
         }
+        public void AddMethodToQueue(Func<IEnumerator> method)
+        {
+            ActionQueue.AddLast(method);
+        }
 
         public IEnumerator CheckQueue()
         {

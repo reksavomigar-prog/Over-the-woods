@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections;
 using Assets.SlayTheSpireMechanics.GameLogic.TurnSystem.StateMachine.Realizations;
 using Assets.SlayTheSpireMechanics.UI;
@@ -68,23 +68,28 @@ namespace SlayTheSpireMechanics.VisualLogic.GameControllers
         public void ChangeGameState(GameStateEnum newGameState)
         {
             _gameState?.OnEnd();
-            switch (newGameState)
+            ActionSystem.Instance.AddMethodToQueue(() =>
             {
-                case GameStateEnum.PlayerTurn:
-                    _gameState = new GamePlayerTurnState(this);
-                    break;
-                case GameStateEnum.EnemyTurn:
-                    _gameState = new GameEnemyTurnState(this);
-                    break;
-                case GameStateEnum.BattleEnter:
-                    _gameState = new GameBattleEnterState(this);
-                    break;
-                
-            }
-            _gameState?.OnStart();
-            Debug.Log(newGameState);
-            ChangeTurnGA changeTurnGA = new ChangeTurnGA(newGameState);
-            ActionSystem.Instance.AddCallbackToQueue(changeTurnGA);
+
+                switch (newGameState)
+                {
+                    case GameStateEnum.PlayerTurn:
+                        _gameState = new GamePlayerTurnState(this);
+                        break;
+                    case GameStateEnum.EnemyTurn:
+                        _gameState = new GameEnemyTurnState(this);
+                        break;
+                    case GameStateEnum.BattleEnter:
+                        _gameState = new GameBattleEnterState(this);
+                        break;
+
+                }
+                _gameState?.OnStart();
+                Debug.Log(newGameState);
+                ChangeTurnGA changeTurnGA = new ChangeTurnGA(newGameState);
+                ActionSystem.Instance.AddCallbackToQueue(changeTurnGA);
+                return null;
+            });
         }
     }
 }
