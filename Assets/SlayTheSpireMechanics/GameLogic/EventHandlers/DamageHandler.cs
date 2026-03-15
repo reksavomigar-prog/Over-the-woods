@@ -70,7 +70,7 @@ namespace SlayTheSpireMechanics.VisualLogic.GameControllers
                     for (int i = 0; i < ea.Repeat; i++)
                     {
                         Debug.Log("enemy healed");
-                        enemy.GetHeal(ea.Heal);
+                        enemy.GetDamage(-ea.Heal);
                     }
                 }
             else
@@ -78,7 +78,7 @@ namespace SlayTheSpireMechanics.VisualLogic.GameControllers
                 for (int i = 0; i < ea.Repeat; i++)
                 {
                     Debug.Log("enemy healed");
-                    ea.Target.GetHeal(ea.Heal);
+                    ea.Target.GetDamage(-ea.Heal);
                 }
             }
 
