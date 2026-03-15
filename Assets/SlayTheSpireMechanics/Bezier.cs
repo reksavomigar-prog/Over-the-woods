@@ -31,19 +31,20 @@ public class Bezier : MonoBehaviour
         cardHoverSystem.cardActiveEnter += EnableLine;
         cardHoverSystem.cardActiveExit += DisableLine;
 
-        
-        _controlVisual1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        _controlVisual1.transform.localScale = Vector3.one * 0.3f;
-        _controlVisual1.GetComponent<Renderer>().material.color = Color.yellow;
-        
-        _controlVisual2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        _controlVisual2.transform.localScale = Vector3.one * 0.3f;
-        _controlVisual2.GetComponent<Renderer>().material.color = Color.yellow;
-        
-        _controlVisual3 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        _controlVisual3.transform.localScale = Vector3.one * 0.3f;
-        _controlVisual3.GetComponent<Renderer>().material.color = Color.yellow;
-        
+        if (enalabeVisual)
+        {
+            _controlVisual1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _controlVisual1.transform.localScale = Vector3.one * 0.3f;
+            _controlVisual1.GetComponent<Renderer>().material.color = Color.yellow;
+
+            _controlVisual2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _controlVisual2.transform.localScale = Vector3.one * 0.3f;
+            _controlVisual2.GetComponent<Renderer>().material.color = Color.yellow;
+
+            _controlVisual3 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _controlVisual3.transform.localScale = Vector3.one * 0.3f;
+            _controlVisual3.GetComponent<Renderer>().material.color = Color.yellow;
+        }
 
         
         _controlVisualList = new GameObject[pointCount];
@@ -101,7 +102,7 @@ public class Bezier : MonoBehaviour
             _controlVisualList[i].transform.position = bezierPoints[i];
         }
         
-        if (enalabeVisual)
+        if (enalabeVisual && _controlVisual1 != null)
         {
             _controlVisual1.transform.position = startPoint;
             _controlVisual2.transform.position = endPoint;

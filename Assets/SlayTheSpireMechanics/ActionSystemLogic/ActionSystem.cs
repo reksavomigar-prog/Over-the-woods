@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 namespace SlayTheSpireMechanics
@@ -52,6 +53,7 @@ namespace SlayTheSpireMechanics
 
             return newCallbackBinding;
         }
+
 
         public static void AttachPerformer<T>(Func<T, IEnumerator> performer) where T : IAction
         {
@@ -104,7 +106,7 @@ namespace SlayTheSpireMechanics
         }
 
 
-        public void AddReactionsToQueue(IAction action, ReactionTiming timing)
+        private void AddReactionsToQueue(IAction action, ReactionTiming timing)
         {
             if (ActionsDictionary.TryGetValue(action.GetType(), out var binding))
             {
@@ -114,7 +116,7 @@ namespace SlayTheSpireMechanics
                 }
             }
         }
-        public void AddReactionsToQueue(ICallback callback)
+        private void AddReactionsToQueue(ICallback callback)
         {
             if (CallbacksDictionary.TryGetValue(callback.GetType(), out var binding))
             {
@@ -124,7 +126,7 @@ namespace SlayTheSpireMechanics
                 }
             }
         }
-        public void AddPerformerToQueue(IAction action)
+        private void AddPerformerToQueue(IAction action)
         {
             if (ActionsDictionary.TryGetValue(action.GetType(), out var binding))
             {
@@ -143,6 +145,10 @@ namespace SlayTheSpireMechanics
         public void AddCallbackToQueue(ICallback callback)
         {
             AddReactionsToQueue(callback);
+        }
+        public void AddMethodToQueue(Func<IEnumerator> meth)
+        {
+            ActionQueue.AddLast(meth);
         }
 
         public IEnumerator CheckQueue()
